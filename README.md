@@ -1,4 +1,4 @@
-# Getting Started
+# Getting Started ![Java CI with Maven](https://github.com/amazingrv/springboot-waffle-maven/workflows/Java%20CI%20with%20Maven/badge.svg)
 
 ### Reference Documentation
 For further reference, please consider the following sections:
