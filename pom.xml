@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.github.waffle</groupId>
 			<artifactId>waffle-spring-security5</artifactId>
-			<version>2.3.0</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
