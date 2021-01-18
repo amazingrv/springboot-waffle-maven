@@ -1,45 +1,46 @@
 package com.amazingrv.springwaffle.mapper;
 
-import com.amazingrv.springwaffle.dto.PersonDTO;
-import com.amazingrv.springwaffle.entity.PersonEntity;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.amazingrv.springwaffle.dto.PersonDTO;
+import com.amazingrv.springwaffle.entity.PersonEntity;
 
 /**
  * @author rjat3
  */
 @SpringBootTest(classes = PersonMapperImpl.class)
 class PersonMapperTest {
-    @Autowired
-    private PersonMapper mapper;
+	private static PersonEntity initialEntity;
 
-    private static PersonEntity initialEntity;
-    private static PersonDTO initialDTO;
-    private static PersonDTO expectedDTO;
-    private static PersonEntity expectedEntity;
+	private static PersonDTO initialDTO;
+	private static PersonDTO expectedDTO;
+	private static PersonEntity expectedEntity;
 
-    @BeforeAll
-    static void setup() {
-        initialEntity = new PersonEntity("123", "ABC");
-        expectedDTO = new PersonDTO("123", "ABC");
+	@BeforeAll
+	static void setup() {
+		PersonMapperTest.initialEntity = new PersonEntity("123", "ABC");
+		PersonMapperTest.expectedDTO = new PersonDTO("123", "ABC");
 
-        initialDTO = new PersonDTO("234", "XYZ");
-        expectedEntity = new PersonEntity("234", "XYZ");
-    }
+		PersonMapperTest.initialDTO = new PersonDTO("234", "XYZ");
+		PersonMapperTest.expectedEntity = new PersonEntity("234", "XYZ");
+	}
 
-    @Test
-    void shouldReturnDTOWhenProvidedEntity() {
-        PersonDTO actualDTO = mapper.toPersonDTO(initialEntity);
-        assertThat(actualDTO).isNotNull().isEqualTo(expectedDTO);
-    }
+	@Autowired
+	private PersonMapper mapper;
 
-    @Test
-    void shouldReturnEntityWhenProvidedDTO() {
-        PersonEntity actualEntity = mapper.toPersonEntity(initialDTO);
-        assertThat(actualEntity).isNotNull().isEqualTo(expectedEntity);
-    }
+	@Test
+	void shouldReturnDTOWhenProvidedEntity() {
+		final PersonDTO actualDTO = mapper.toPersonDTO(PersonMapperTest.initialEntity);
+		Assertions.assertThat(actualDTO).isNotNull().isEqualTo(PersonMapperTest.expectedDTO);
+	}
+
+	@Test
+	void shouldReturnEntityWhenProvidedDTO() {
+		final PersonEntity actualEntity = mapper.toPersonEntity(PersonMapperTest.initialDTO);
+		Assertions.assertThat(actualEntity).isNotNull().isEqualTo(PersonMapperTest.expectedEntity);
+	}
 }

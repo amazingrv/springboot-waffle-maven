@@ -1,9 +1,10 @@
 package com.amazingrv.springwaffle.mapper;
 
-import com.amazingrv.springwaffle.dto.PersonDTO;
-import com.amazingrv.springwaffle.entity.PersonEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import com.amazingrv.springwaffle.dto.PersonDTO;
+import com.amazingrv.springwaffle.entity.PersonEntity;
 
 /**
  * Mapper for PersonDTO and PersonEntity
@@ -13,11 +14,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
 
-    @Mapping(target = "uid", source = "person.uid")
-    @Mapping(target = "firstName", source = "person.firstName")
-    PersonDTO toPersonDTO(PersonEntity person);
+	@Mapping(target = "uid", source = "person.uid")
+	@Mapping(target = "firstName", source = "person.firstName")
+	PersonDTO toPersonDTO(PersonEntity person);
 
-    @Mapping(target = "uid", source = "dto.uid")
-    @Mapping(target = "firstName", source = "dto.firstName")
-    PersonEntity toPersonEntity(PersonDTO dto);
+	@Mapping(target = "uid", source = "dto.uid")
+	@Mapping(target = "firstName", source = "dto.firstName")
+	PersonEntity toPersonEntity(PersonDTO dto);
 }

@@ -1,22 +1,23 @@
 package com.amazingrv.springwaffle.service;
 
-import com.amazingrv.springwaffle.dto.PersonDTO;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import com.amazingrv.springwaffle.dto.PersonDTO;
 
 /**
  * @author rjat3
  */
 public interface PersonService {
 
-    List<PersonDTO> getAllPersons(Pageable pageable);
+	String createPerson(PersonDTO person);
 
-    PersonDTO getPerson(String id);
+	String deletePerson(String id);
 
-    String createPerson(PersonDTO person);
+	List<PersonDTO> getAllPersons(Pageable pageable);
 
-    String updatePerson(PersonDTO person);
+	PersonDTO getPerson(String id);
 
-    String deletePerson(String id);
+	String updatePerson(PersonDTO person);
 }

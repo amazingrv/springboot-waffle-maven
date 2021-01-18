@@ -1,8 +1,13 @@
 package com.amazingrv.springwaffle.dto;
 
-import lombok.*;
-
 import javax.validation.constraints.NotBlank;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * DTO class for person
@@ -16,9 +21,9 @@ import javax.validation.constraints.NotBlank;
 @ToString
 @EqualsAndHashCode
 public class PersonDTO {
-    @NotBlank(message = "Id is mandatory")
-    private String uid;
+	@NotBlank(message = "Id is mandatory")
+	private String uid;
 
-    @NotBlank(message = "Name is mandatory")
-    private String firstName;
+	@NotBlank(message = "Name is mandatory")
+	private String firstName;
 }

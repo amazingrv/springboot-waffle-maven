@@ -11,8 +11,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 public class SpringWaffleIntegrationApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SpringWaffleIntegrationApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(SpringWaffleIntegrationApplication.class, args);
+	}
 
 }

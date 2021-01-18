@@ -1,6 +1,5 @@
 package com.amazingrv.springwaffle.config;
 
-import com.amazingrv.springwaffle.filter.UserAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import com.amazingrv.springwaffle.filter.UserAuthFilter;
+
 import waffle.spring.NegotiateSecurityFilter;
 import waffle.spring.NegotiateSecurityFilterEntryPoint;
 
@@ -21,33 +23,31 @@ import waffle.spring.NegotiateSecurityFilterEntryPoint;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final NegotiateSecurityFilter negotiateSecurityFilter;
+	private final NegotiateSecurityFilter negotiateSecurityFilter;
 
-    private final NegotiateSecurityFilterEntryPoint entryPoint;
+	private final NegotiateSecurityFilterEntryPoint entryPoint;
 
-    private final UserAuthFilter userContextInjectorFilter;
+	private final UserAuthFilter userContextInjectorFilter;
 
-    public SecurityConfig(NegotiateSecurityFilter negotiateSecurityFilter,
-                          NegotiateSecurityFilterEntryPoint entryPoint,
-                          UserAuthFilter userContextInjectorFilter) {
-        this.negotiateSecurityFilter = negotiateSecurityFilter;
-        this.entryPoint = entryPoint;
-        this.userContextInjectorFilter = userContextInjectorFilter;
-    }
+	public SecurityConfig(NegotiateSecurityFilter negotiateSecurityFilter, NegotiateSecurityFilterEntryPoint entryPoint,
+			UserAuthFilter userContextInjectorFilter) {
+		this.negotiateSecurityFilter = negotiateSecurityFilter;
+		this.entryPoint = entryPoint;
+		this.userContextInjectorFilter = userContextInjectorFilter;
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().csrfTokenRepository(new CookieCsrfTokenRepository())
-                .and().authorizeRequests().anyRequest().authenticated()
-                .and().httpBasic().authenticationEntryPoint(entryPoint)
-                .and().addFilterAfter(negotiateSecurityFilter, BasicAuthenticationFilter.class)
-                .addFilterAfter(userContextInjectorFilter, BasicAuthenticationFilter.class);
-    }
+	@Override
+	@Autowired
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication();
+	}
 
-    @Override
-    @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.cors().and().csrf().csrfTokenRepository(new CookieCsrfTokenRepository()).and().authorizeRequests()
+				.anyRequest().authenticated().and().httpBasic().authenticationEntryPoint(entryPoint).and()
+				.addFilterAfter(negotiateSecurityFilter, BasicAuthenticationFilter.class)
+				.addFilterAfter(userContextInjectorFilter, BasicAuthenticationFilter.class);
+	}
 
 }
